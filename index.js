@@ -24,7 +24,7 @@ function switchTab(newTab) {
         error_msg.classList.remove("active");
 
         if (!searchForm.classList.contains("active")) {
-            //kya search form vala container is invisible,if yes the make it visible 
+            //kya search form container is invisible,if yes the make it visible 
             userInfoContainer.classList.remove("active");
             grantAccessContainer.classList.remove("active");
             searchForm.classList.add("active");
@@ -68,6 +68,7 @@ async function fetchUserWeatherInfo(coordinates) {
     const { lat, lon } = coordinates;
     //make grantcontainer invisible
     grantAccessContainer.classList.remove("active");
+    error_msg.classList.remove("active");
     //make loader visible
     loadingScreen.classList.add("active");
 
@@ -113,6 +114,8 @@ function renderWeatherInfo(weatherInfo) {
 
 }
 
+const grantAccessButton = document.querySelector("[data-grantAccess]");
+grantAccessButton.addEventListener("click", getLocation);
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -132,9 +135,6 @@ function showPosition(position) {
     sessionStorage.setItem("user-coordinates", JSON.stringify(userCoordinates));
     fetchUserWeatherInfo(userCoordinates);
 }
-
-const grantAccessButton = document.querySelector("[data-grantAccess]");
-grantAccessButton.addEventListener("click", getLocation);
 
 const searchInput = document.querySelector("[data-searchInput]");
 
